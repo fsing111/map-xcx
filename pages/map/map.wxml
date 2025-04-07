@@ -1,0 +1,6 @@
+<!--pages/map/map.wxml-->
+<view class="container">
+  <view class="map-container">
+    <image class="map-image" src="/images/map-image.jpg" mode="aspectFit"></image>
+  </view>
+</view>
