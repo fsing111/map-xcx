@@ -1,6 +1,9 @@
 // pages/map/map.js
 Page({
-  data: {},
+  data: {
+    searchValue: '',
+    searchResults: []
+  },
   onLoad: function () {
     // 页面加载时的逻辑
   },
@@ -12,18 +15,11 @@ Page({
         console.log('当前位置信息：', res);
         that.setData({
           latitude: res.latitude,
-          longitude: res.longitude,
-          markers: [{
-            id: 0,
-            latitude: res.latitude,
-            longitude: res.longitude,
-            title: '当前位置',
-            width: 20,
-            height: 20
-          }]
+          longitude: res.longitude
         });
-        // 获取位置详情
-        that.getLocationInfo(res.latitude, res.longitude);
+        wx.switchTab({
+          url: '/pages/index/index'
+        });
       },
       fail: function(err) {
         console.error('获取位置失败：', err);
@@ -52,8 +48,27 @@ Page({
       }
     });
   },
-  searchPlaces: function(e) {
-    const value = e.detail.value;
+  onSearchInput: function(e) {
+    this.setData({
+      searchValue: e.detail.value
+    });
+  },
+
+  onSearch: function(e) {
+    const value = this.data.searchValue;
+    if (!value.trim()) {
+      wx.showToast({
+        title: '请输入搜索内容',
+        icon: 'none'
+      });
+      return;
+    }
+
+    // 执行搜索逻辑
+    this.searchPlaces(value);
+  },
+
+  searchPlaces: function(value) {
     this.setData({
       searchValue: value
     });

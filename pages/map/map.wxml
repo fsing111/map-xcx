@@ -1,6 +1,15 @@
 <!--pages/map/map.wxml-->
 <view class="container">
+  <view class="search-box">
+    <view class="search-bar">
+      <image class="search-icon" src="/images/map-s.png" mode="aspectFit"></image>
+      <input type="text" placeholder="搜索地点" bindinput="onSearchInput" confirm-type="search" bindconfirm="onSearch"/>
+    </view>
+  </view>
   <view class="map-container">
     <image class="map-image" src="/images/map-image.jpg" mode="aspectFit"></image>
+  </view>
+  <view class="circle-button" bindtap="getCurrentLocation">
+    <image class="button-icon" src="/images/location.png" mode="aspectFit"></image>
   </view>
 </view>
