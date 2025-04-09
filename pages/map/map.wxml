@@ -12,6 +12,9 @@
            bindtouchmove="handleTouchMove"
            bindtouchend="handleTouchEnd"
            style="transform: scale({{scale}}) translate({{translateX}}px, {{translateY}}px);"></image>
+    <view class="nan-lu-shaojiu-museum-button" bindtap="onFoodButtonTap">
+      <image class="nan-lu-shaojiu-museum-icon" src="/images/nan_lu_shaojiu_museum.png" mode="aspectFit"></image>
+    </view>
   </view>
   <view class="circle-button" bindtap="getCurrentLocation">
     <image class="button-icon" src="/images/location.png" mode="aspectFit"></image>
