@@ -1,8 +1,7 @@
 {
   "pages": [
     "pages/map/map",
-    "pages/index/index",
-    "pages/profile/profile",
+    "pages/location/location",
     "pages/logs/logs"
   ],
   "window": {
@@ -10,32 +9,7 @@
     "navigationBarTitleText": "旅行地图",
     "navigationBarBackgroundColor": "#ffffff"
   },
-  "tabBar": {
-    "color": "#999999",
-    "selectedColor": "#4a90e2",
-    "backgroundColor": "#ffffff",
-    "borderStyle": "black",
-    "list": [
-      {
-        "pagePath": "pages/map/map",
-        "text": "旅游地图",
-        "iconPath": "images/map.png",
-        "selectedIconPath": "images/map-s.png"
-      },
-      {
-        "pagePath": "pages/index/index",
-        "text": "当前位置",
-        "iconPath": "images/location.png",
-        "selectedIconPath": "images/map-s.png"
-      },
-      {
-        "pagePath": "pages/profile/profile",
-        "text": "我的",
-        "iconPath": "images/user.png",
-        "selectedIconPath": "images/map-s.png"
-      }
-    ]
-  },
+
   "style": "v2",
   "componentFramework": "glass-easel",
   "sitemapLocation": "sitemap.json",
