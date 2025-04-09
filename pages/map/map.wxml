@@ -7,7 +7,11 @@
     </view>
   </view>
   <view class="map-container">
-    <image class="map-image" src="/images/map-image.jpg" mode="aspectFit"></image>
+    <image class="map-image" src="/images/map-image.jpg" mode="aspectFit"
+           bindtouchstart="handleTouchStart"
+           bindtouchmove="handleTouchMove"
+           bindtouchend="handleTouchEnd"
+           style="transform: scale({{scale}}) translate({{translateX}}px, {{translateY}}px);"></image>
   </view>
   <view class="circle-button" bindtap="getCurrentLocation">
     <image class="button-icon" src="/images/location.png" mode="aspectFit"></image>

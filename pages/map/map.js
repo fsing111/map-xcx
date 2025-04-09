@@ -2,10 +2,117 @@
 Page({
   data: {
     searchValue: '',
-    searchResults: []
+    searchResults: [],
+    scale: 1,
+    translateX: 0,
+    translateY: 0,
+    lastTapTime: 0,
+    lastScale: 1,
+    lastX: 0,
+    lastY: 0
   },
   onLoad: function () {
     // 页面加载时的逻辑
+    this.setData({
+      scale: 1,
+      translateX: 0,
+      translateY: 0
+    });
+  },
+
+  handleTouchStart: function(e) {
+    if (e.touches.length === 1) {
+      // 单指触摸，记录起始位置
+      const touch = e.touches[0];
+      this.setData({
+        lastX: touch.clientX - this.data.translateX,
+        lastY: touch.clientY - this.data.translateY
+      });
+    } else if (e.touches.length === 2) {
+      // 双指触摸，计算初始距离
+      const touch1 = e.touches[0];
+      const touch2 = e.touches[1];
+      const distance = Math.sqrt(
+        Math.pow(touch2.clientX - touch1.clientX, 2) +
+        Math.pow(touch2.clientY - touch1.clientY, 2)
+      );
+      this.initialDistance = distance;
+      this.initialScale = this.data.scale;
+    }
+  },
+
+  handleTouchMove: function(e) {
+    if (e.touches.length === 1) {
+      // 单指拖动
+      const touch = e.touches[0];
+      let newX = touch.clientX - this.data.lastX;
+      let newY = touch.clientY - this.data.lastY;
+
+      // 获取视口尺寸
+      const viewportWidth = wx.getSystemInfoSync().windowWidth;
+      const viewportHeight = wx.getSystemInfoSync().windowHeight;
+      
+      // 计算图片实际尺寸
+      const imageWidth = viewportWidth * this.data.scale;
+      const imageHeight = viewportHeight * this.data.scale;
+      
+      // 计算可移动的最大范围
+      const maxTranslateX = Math.max(0, (imageWidth - viewportWidth) / 4); // 将除数从2改为4
+      const maxTranslateY = Math.max(0, (imageHeight - viewportHeight) / 4); // 将除数从2改为4
+
+      // 严格限制拖动范围，确保不会出现空白
+      newX = Math.min(Math.max(newX, -maxTranslateX), maxTranslateX);
+      newY = Math.min(Math.max(newY, -maxTranslateY), maxTranslateY);
+
+      this.setData({
+        translateX: newX,
+        translateY: newY
+      });
+    } else if (e.touches.length === 2) {
+      // 双指缩放
+      const touch1 = e.touches[0];
+      const touch2 = e.touches[1];
+      const distance = Math.sqrt(
+        Math.pow(touch2.clientX - touch1.clientX, 2) +
+        Math.pow(touch2.clientY - touch1.clientY, 2)
+      );
+
+      const newScale = (distance / this.initialDistance) * this.initialScale;
+      // 限制缩放范围在1到3之间，确保图片至少填充满屏幕
+      const scale = Math.min(Math.max(newScale, 1), 3);
+
+      // 保持当前中心点不变
+      const centerX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+      const centerY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+      
+      this.setData({
+        scale: scale,
+        translateX: this.data.translateX,
+        translateY: this.data.translateY
+      });
+    }
+  },
+
+  handleTouchEnd: function(e) {
+    // 处理双击缩放
+    if (e.touches.length === 0) {
+      const currentTime = new Date().getTime();
+      const timeDiff = currentTime - this.data.lastTapTime;
+
+      if (timeDiff < 300) {
+        // 双击检测
+        const newScale = this.data.scale === 1 ? 2 : 1;
+        this.setData({
+          scale: newScale,
+          translateX: 0,
+          translateY: 0
+        });
+      }
+
+      this.setData({
+        lastTapTime: currentTime
+      });
+    }
   },
   getCurrentLocation: function() {
     const that = this;
