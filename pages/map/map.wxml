@@ -3,8 +3,14 @@
   <view class="search-box">
     <view class="search-bar">
       <image class="search-icon" src="/images/map-s.png" mode="aspectFit"></image>
-      <input type="text" placeholder="搜索地点" bindinput="onSearchInput" confirm-type="search" bindconfirm="onSearch"/>
+      <input type="text" placeholder="搜索地点" bindinput="onSearchInput" confirm-type="search" bindconfirm="onSearch" value="{{searchValue}}"/>
       <button class="search-button" bindtap="onSearch" style="width: 88rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx">搜索</button>
+    </view>
+    <view class="suggestions-list" wx:if="{{showSuggestions}}">
+      <view class="suggestion-item" wx:for="{{suggestions}}" wx:key="id" bindtap="selectSuggestion" data-index="{{index}}">
+        <view class="suggestion-title">{{item.title}}</view>
+        <view class="suggestion-address">{{item.address}}</view>
+      </view>
     </view>
   </view>
   <view class="map-container">

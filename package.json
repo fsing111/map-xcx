@@ -1,0 +1,8 @@
+{
+  "name": "map-xcx",
+  "version": "1.0.0",
+  "description": "微信小程序地图应用",
+  "dependencies": {
+    "@babel/runtime": "^7.22.15"
+  }
+}

@@ -15,11 +15,43 @@ page {
 }
 
 .search-box {
-  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   padding: 20rpx;
-  background-color: #ffffff;
-  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.1);
-  z-index: 2;
+  background-color: #fff;
+  z-index: 100;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.suggestions-list {
+  background-color: #fff;
+  border-radius: 8rpx;
+  margin-top: 10rpx;
+  max-height: 600rpx;
+  overflow-y: auto;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.suggestion-item {
+  padding: 20rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-title {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 4rpx;
+}
+
+.suggestion-address {
+  font-size: 24rpx;
+  color: #999;
 }
 
 .search-bar {

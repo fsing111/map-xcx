@@ -6,6 +6,8 @@ Page({
   data: {
     searchValue: '',
     searchResults: [],
+    suggestions: [],
+    showSuggestions: false,
     scale: 1,
     translateX: 0,
     translateY: 0,
@@ -183,11 +185,64 @@ Page({
     this.searchPlaces(value);
   },
 
-  searchPlaces: function(value) {
+  onSearchInput: function(e) {
+    const value = e.detail.value;
     this.setData({
-      searchValue: value
+      searchValue: value,
+      showSuggestions: false,
+      suggestions: []
     });
     
+    if (value.length > 0) {
+      const that = this;
+      // 获取关键词提示
+      qqmapsdk.getSuggestion({
+        keyword: value,
+        success: function(res) {
+          if (res.data && res.data.length > 0) {
+            that.setData({
+              suggestions: res.data,
+              showSuggestions: true
+            });
+            that.setData({
+              suggestions: res.data,
+              showSuggestions: true
+            });
+          } else {
+            that.setData({
+              suggestions: [],
+              showSuggestions: false
+            });
+          }
+        },
+        fail: function(res) {
+          console.error('获取提示失败：', res);
+          that.setData({
+            suggestions: [],
+            showSuggestions: false
+          });
+        }
+      });
+    } else {
+      this.setData({
+        suggestions: [],
+        showSuggestions: false
+      });
+    }
+  },
+
+  // 选择提示的地点
+  selectSuggestion: function(e) {
+    const index = e.currentTarget.dataset.index;
+    const suggestion = this.data.suggestions[index];
+    this.setData({
+      searchValue: suggestion.title,
+      showSuggestions: false
+    });
+    this.searchPlaces(suggestion.title);
+  },
+
+  searchPlaces: function(value) {
     if (value.length > 0) {
       const that = this;
       qqmapsdk.search({
