@@ -1,0 +1,18 @@
+<!--pages/location_search/location_search.wxml-->
+<view class="container">
+  <view class="search-header">
+    <text class="search-keyword">搜索：{{keyword}}</text>
+  </view>
+
+  <view class="search-results">
+    <block wx:if="{{searchResults.length > 0}}">
+      <view class="result-item" wx:for="{{searchResults}}" wx:key="id" bindtap="selectLocation" data-index="{{index}}">
+        <view class="location-title">{{item.title}}</view>
+        <view class="location-address">{{item.address}}</view>
+      </view>
+    </block>
+    <view wx:else class="no-results">
+      <text>暂无搜索结果</text>
+    </view>
+  </view>
+</view>

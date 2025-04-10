@@ -2,7 +2,8 @@
   "pages": [
     "pages/map/map",
     "pages/location/location",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/location_search/location_search"
   ],
   "window": {
     "navigationBarTextStyle": "black",

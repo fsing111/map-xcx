@@ -44,6 +44,19 @@ page {
   color: #333333;
 }
 
+.search-button {
+  margin-left: 16rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  padding: 0 12rpx;
+  font-size: 24rpx;
+  color: #ffffff;
+  background-color: #007AFF;
+  border-radius: 8rpx;
+  border: none;
+  min-width: 10rpx;
+}
+
 .map-container {
   flex: 1;
   width: 100%;
@@ -70,8 +83,8 @@ page {
   position: absolute;
   left: 50%;
   bottom: 30rpx;
-  width: 100rpx;
-  height: 100rpx;
+  width: 70rpx;
+  height: 70rpx;
   border-radius: 50%;
   background-color: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -83,8 +96,8 @@ page {
 }
 
 .button-icon {
-  width: 60rpx;
-  height: 60rpx;
+  width: 40rpx;
+  height: 40rpx;
 }
 
 .nan-lu-shaojiu-museum-button {

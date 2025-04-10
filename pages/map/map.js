@@ -1,4 +1,7 @@
 // pages/map/map.js
+const QQMapWX = require('../../qqmap-wx-jssdk.min.js');
+let qqmapsdk;
+
 Page({
   data: {
     searchValue: '',
@@ -12,6 +15,11 @@ Page({
     lastY: 0
   },
   onLoad: function () {
+    // 初始化腾讯地图SDK
+    qqmapsdk = new QQMapWX({
+      key: 'EYZBZ-373LQ-2EN5Q-BPW5O-TESME-MXBXJ'
+    });
+    
     // 页面加载时的逻辑
     this.setData({
       scale: 1,
@@ -186,13 +194,24 @@ Page({
         keyword: value,
         success: function(res) {
           console.log('搜索结果：', res);
-          that.setData({
-            searchResults: res.data,
-            showSearchResults: true
-          });
+          if (res.data && res.data.length > 0) {
+            // 将搜索结果传递到location_search页面
+            wx.navigateTo({
+              url: `/pages/location_search/location_search?keyword=${encodeURIComponent(value)}&searchResults=${encodeURIComponent(JSON.stringify(res.data))}`
+            });
+          } else {
+            wx.showToast({
+              title: '未找到相关地点',
+              icon: 'none'
+            });
+          }
         },
         fail: function(res) {
           console.error('搜索失败：', res);
+          wx.showToast({
+            title: '搜索失败',
+            icon: 'none'
+          });
         }
       });
     } else {
