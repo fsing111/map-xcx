@@ -198,6 +198,8 @@ Page({
       // 获取关键词提示
       qqmapsdk.getSuggestion({
         keyword: value,
+        region: '北京市大兴区',
+        region_fix: 1,
         success: function(res) {
           if (res.data && res.data.length > 0) {
             that.setData({
@@ -247,6 +249,8 @@ Page({
       const that = this;
       qqmapsdk.search({
         keyword: value,
+        region: '北京市大兴区',
+        region_fix: 1,
         success: function(res) {
           console.log('搜索结果：', res);
           if (res.data && res.data.length > 0) {
